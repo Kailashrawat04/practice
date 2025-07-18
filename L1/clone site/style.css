@@ -1,0 +1,85 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.bluebar{
+    background-color: #3266F9;
+    font-family: sans-serif;
+    width: 100%;
+    
+    text-align: center;
+    
+
+    display: flex;
+    justify-content: center;
+    padding-top: 26px;
+    padding-bottom: 26px;
+    color: #E7FFFF;
+}
+#whitebar{
+    background-color: #FFFFFF;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+.fluterrlogo{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 20px;
+    padding: 20px;
+    
+}
+#Flutterbar{
+    justify-content: space-between;
+    align-items:center;
+    display: flex;
+    margin: 20px;
+    padding: 20px;
+    gap: 25px;
+    
+}
+#flutter_element{
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+    background-color: chocolate;
+    width:600px;  
+    padding: 6px; 
+    font-family: Verdana, Geneva, Tahoma, sans-serif; 
+}
+#Search{
+    background-color: #9ba4ad;
+    
+    display: flex;
+    justify-content: space-between;
+    align-items:center;  
+    padding: 6px;
+}
+#img_get_started{
+    background-color: aquamarine;
+    padding: 6px;
+    width: 25%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    border-radius: 25%;
+}
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,42 @@
+html ,body{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    
+
+}
+
+
+#bbox{
+    align-items: center;
+    height: 500px;
+}
+
+
+
+h1 {
+    font-weight: 400;
+}
+#box{
+    align-items: horizontal ;
+    height: 100px;
+}
+
+#un{
+    align-items: horizontal;
+    height: 100px;
+}
+#p{
+    align-items: vertical;
+    height: 100px;
+}
+
+#chb{
+    align-items: horizontal;    
+    height: 100px;
+}
+#Li{
+    align-items: center;
+    height: 100px;
+}
