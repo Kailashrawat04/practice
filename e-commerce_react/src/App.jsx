@@ -16,6 +16,7 @@ const App = () => {
   const deleteitem =()=>{
     setarray(()=>{
         return array.filter((elem,index)=> index !== array.length-1)
+        
     })
   }
 
