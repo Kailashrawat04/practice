@@ -38,6 +38,7 @@
 
 import React from 'react'
 import NavBar from './components/Navbar'
+import Login from './components/login/Login'
 
 import 'remixicon/fonts/remixicon.css'  
 const App = () => {
