@@ -11,4 +11,58 @@
     <h1>Hello, World!</h1>
     <script src="script.js"></script>
 </body>
-</html>
+</html>it add .
+>> git commit -m "Removed secrets and updated config"
+>> git push origin main
+On branch main
+Your branch is ahead of 'origin/main' by 1 commit.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+Enumerating objects: 2432, done.
+Counting objects: 100% (2432/2432), done.
+Delta compression using up to 16 threads
+Compressing objects: 100% (2322/2322), done.
+Writing objects: 100% (2427/2427), 4.06 MiB | 2.05 MiB/s, done.
+Total 2427 (delta 270), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (270/270), completed with 4 local objects.
+remote: error: GH013: Repository rule violations found for refs/heads/main.
+remote: 
+remote: - GITHUB PUSH PROTECTION
+remote:   —————————————————————————————————————————
+remote:     Resolve the following violations before pushing again
+remote:
+remote:     - Push cannot contain secrets
+remote:
+remote:
+remote:      (?) Learn how to resolve a blocked push
+remote:      https://docs.github.com/code-security/secret-scanning/working-with-secret-scanning-and-push-protection/working-with-push-protection-from-the-command-line#resolving-a-blocked-push
+remote:
+remote:
+remote:       —— Google OAuth Client ID ————————————————————————————
+remote:        locations:
+remote:          - commit: 3c0b2dca49113ff60ab60413bb463f3901c58ff3
+remote:            path: e-commerce_react/src/fiel:1
+remote:          - commit: 3c0b2dca49113ff60ab60413bb463f3901c58ff3
+remote:            path: e-commerce_react/src/fiel:6
+remote:
+remote:        (?) To push, remove secret from commit(s) or follow this URL to allow the secret.
+remote:        https://github.com/kartik-codes26/VIPS_MERN_STACK/security/secret-scanning/unblock-secret/30bUqDqAev8zEHZRi8dEpwBM6ok
+remote:
+remote:
+remote:       —— Google OAuth Client Secret ————————————————————————
+remote:        locations:
+remote:          - commit: 3c0b2dca49113ff60ab60413bb463f3901c58ff3
+remote:            path: e-commerce_react/src/fiel:3
+remote:          - commit: 3c0b2dca49113ff60ab60413bb463f3901c58ff3
+remote:            path: e-commerce_react/src/fiel:9
+remote:
+remote:        (?) To push, remove secret from commit(s) or follow this URL to allow the secret.
+remote:        https://github.com/kartik-codes26/VIPS_MERN_STACK/security/secret-scanning/unblock-secret/30bUqDmLQYUupUjOhvBjUoU7rMU
+remote:
+remote:
+remote:
+To https://github.com/kartik-codes26/VIPS_MERN_STACK.git
+ ! [remote rejected] main -> main (push declined due to repository rule violations)
+error: failed to push some refs to 'https://github.com/kartik-codes26/VIPS_MERN_STACK.git'
+PS C:\Users\Kartik\VIPS_FULLSTACK_WEB> 
