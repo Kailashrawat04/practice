@@ -9,6 +9,7 @@ import UserHome from './pages/userspage/UserHome'
 import UserProductDetail from './pages/userspage/UserProductDetail'
 import SignUpPage from './pages/SignUpPage'
 import SignInPage from './pages/SignInPage'
+import CartPage from './pages/CartPage'  // Added import for CartPage
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
         <Route path='/' element={<SignUpPage/>}/>
         <Route path='/SignInPage' element={<SignInPage/>}/>
         <Route path='/Home' element={<Home/>}/>
+        <Route path='/cart' element={<CartPage/>}/>  {/* Added route for CartPage */}
       </Routes>
     </div>
   )
