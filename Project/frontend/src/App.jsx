@@ -1,31 +1,28 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import SignUpPage from './pages/SignUpPage'
-import {Routes,Route} from 'react-router-dom'
-import SignInPage from './pages/SignInPage'
-import HomePage from './pages/HomePage'
+import React from 'react'
+import Navbar from './components/Navbar'
+import 'remixicon/fonts/remixicon.css'
+import AddProducts from "./pages/Addproducts"
+import { Routes , Route } from 'react-router-dom'
+import Home from './pages/Home'
 import ProductDetail from './pages/ProductDetail'
-import Addproducts from './pages/Addproducts'
+import UserHome from './pages/userspage/UserHome'
+import UserProductDetail from './pages/userspage/UserProductDetail'
+import SignUpPage from './pages/SignUpPage'
+import SignInPage from './pages/SignInPage'
 
-
-function App() {
-
+const App = () => {
   return (
-    <>
-      {/* <div>
-        <SignUpPage/>
-      </div> */}
+    <div>
       <Routes>
-        <Route path="/" element={<SignUpPage/>}/>
-        <Route path="/SignInPage" element={<SignInPage/>}/>
-        <Route path='/HomePage' element={<HomePage/>}/>
-        <Route path='/ProductDetail/:id' element={<ProductDetail/>}/>
-        <Route path='/admin/products/add' element={<Addproducts/>}/>
-
+        {/* <Route path='/' element={<UserHome/>}/> */}
+        <Route path='/products/detail/:productId' element={<UserProductDetail/>}/>
+        <Route path='/admin/products/add' element={<AddProducts/>}/>
+        <Route path='/admin/products/detail/:productId' element={<ProductDetail/>}/>
+        <Route path='/' element={<SignUpPage/>}/>
+        <Route path='/SignInPage' element={<SignInPage/>}/>
+        <Route path='/Home' element={<Home/>}/>
       </Routes>
-    </>
+    </div>
   )
 }
 

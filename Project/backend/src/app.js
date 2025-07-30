@@ -1,18 +1,48 @@
+const express = require("express")
+const productRouter = require("./routes/product.router")
+const indexRouter = require("./routes/index.router")
+const userRouter = require("./routes/user.router")
+const cartRouter = require("./routes/cart.router")
+const app = express()
+const path = require("path")
+const morgon = require("morgan")
+const cors = require("cors")
+
+app.use(morgon("dev"))
+
+
+app.use(cors())
+
+app.use(express.json())
+app.use(express.urlencoded({extended : true}))
+
+
+
+app.use("/", indexRouter) 
+app.use("/cart", cartRouter)
+app.use("/users", userRouter)
+app.use("/products",productRouter)
+
+
+// module.exports = app
+
+
+
 require('dotenv').config();
-const express = require("express");
-const cors = require("cors");
+// const express = require("express");
+// const cors = require("cors");
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const { Strategy: GoogleStrategy } = require('passport-google-oauth20');
 
-const app = express();
+// const app = express();
 
 const SignUpRouter = require("./routes/SignUp.Router");
 const SignInRouter = require("./routes/SignIn.Router");
 
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// app.use(cors());
+// app.use(express.json());
+// app.use(express.urlencoded({ extended: true }));
 
 app.use("/SignUp", SignUpRouter);
 app.use("/SignIn", SignInRouter);
@@ -47,3 +77,4 @@ app.get('/auth/google/callback',
 );
 
 module.exports = app;
+

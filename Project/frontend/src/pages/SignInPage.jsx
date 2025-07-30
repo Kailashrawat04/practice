@@ -19,7 +19,7 @@ const SignInPage = () => {
         await axios.post("http://localhost:3000/SignIn/ValidateUser", { FormData })
             .then((res) => {
                 if (res.data.out) {
-                    Navigate("/HomePage")
+                    Navigate("/Home")
                 }
             })
             .catch((err) => {
