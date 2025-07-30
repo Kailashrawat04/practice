@@ -8,8 +8,22 @@ const router = express.Router();
 
 
 
-router.get("/", (req, res) => {
- 
+router.get("/", async (req, res) => {
+  try {
+    const productsCount = await productModel.countDocuments();
+
+    if (productsCount === 0) {
+      // Insert sample products if collection is empty
+      const sampleProducts = require("../data/sampleProducts");
+      await productModel.insertMany(sampleProducts);
+    }
+
+    const products = await productModel.find();
+
+    res.status(200).json({ message: "data found", products });
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching products", error: error.message });
+  }
 });
 
 

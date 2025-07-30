@@ -1,4 +1,5 @@
 const express = require("express")
+const bcrypt = require("bcrypt")
 const userModel = require("../models/user.model")
 const router = express.Router()
 router.post("/AddUser", async (req, res) => {
@@ -18,10 +19,11 @@ router.post("/AddUser", async (req, res) => {
     }
     else {
         message = "User added Succesfully"
+        const hashedPassword = await bcrypt.hash(req.body.FormData.password, 10)
         const User = userModel({
             name: req.body.FormData.name,
             email: req.body.FormData.email,
-            password: req.body.FormData.password
+            password: hashedPassword
         })
         await User.save()
     }

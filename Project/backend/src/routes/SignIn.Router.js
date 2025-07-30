@@ -1,4 +1,5 @@
 const express = require("express")
+const bcrypt = require("bcrypt")
 const userModel = require("../models/user.model")
 const router = express.Router()
 router.post("/ValidateUser", async (req, res) => {
@@ -9,7 +10,8 @@ router.post("/ValidateUser", async (req, res) => {
     for (let index = 0; index < Users.length; index++) {
         const element = Users[index];
         if (element.email == email) {
-            if (element.password == password) {
+            const isMatch = await bcrypt.compare(password, element.password)
+            if (isMatch) {
                 res.status(200).json({ message: "User Exists", out: true })
             }
             else {

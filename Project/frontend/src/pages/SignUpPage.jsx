@@ -69,9 +69,9 @@ const SignUpPage = () => {
         <label htmlFor="Email">Email</label>
         <input placeholder='Enter Email' onChange={onEmailChange} required></input><br />
         <label htmlFor="Password">Password</label>
-        <input placeholder='Enter Password' onChange={onPasswordChange} required></input><br />
+        <input type="password" placeholder='Enter Password' onChange={onPasswordChange} required></input><br />
         <label htmlFor="RePassword">Re-Enter Password</label>
-        <input placeholder='Re-Enter Password' onChange={onRePasswordChange} required></input><br />
+        <input type="password" placeholder='Re-Enter Password' onChange={onRePasswordChange} required></input><br />
         <input type='submit' value={"Sign Up"}></input>
       </form>
       <p>Already Registered ?<button onClick={() => Navigate("/SignInPage")}>Sign In</button></p>

@@ -32,7 +32,7 @@ const SignInPage = () => {
                 <label htmlFor="Email">Email</label>
                 <input placeholder='Enter Email' onChange={onEmailChange}></input><br />
                 <label htmlFor="Password">Password</label>
-                <input placeholder='Enter Password' onChange={onPasswordChange}></input><br />
+                <input type="password" placeholder='Enter Password' onChange={onPasswordChange} required></input><br />
                 <input type='submit' value={"Sign In"}></input>
             </form>
             <p>New Customer ?<button onClick={onSignUpButtonClick}>Sign Up</button></p>
