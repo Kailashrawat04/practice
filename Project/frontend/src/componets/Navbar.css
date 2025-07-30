@@ -1,0 +1,29 @@
+nav {
+    height: 50px;
+    width: 100%;
+    background-color: rgb(158, 214, 195);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px;
+}
+
+nav .search input {
+
+    width: 500px;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+}
+
+nav .right{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+
+}
+i{
+    margin-right: 10px;
+    padding-right: 10px;
+    
+}
