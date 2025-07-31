@@ -8,6 +8,7 @@ import SearchBar from "../components/SearchBar";
 import PincodeEntry from "../components/PincodeEntry";
 import BottomNav from "../components/BottomNav";
 
+
 const Home = () => {
   const [productData, setProductData] = useState([]);
   const navigate = useNavigate();
