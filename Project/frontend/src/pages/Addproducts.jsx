@@ -18,7 +18,7 @@ const AddProducts = () => {
         axios.post("http://localhost:3000/products/add", formData)
             .then((res) => {
                 console.log(res);
-                navigate("/")
+                navigate("/home")
             })
             .catch((err) => {
                 console.log(err);

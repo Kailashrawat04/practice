@@ -66,6 +66,7 @@ const CartPage = () => {
             return (
               <div
                 key={item._id}
+                onClick={() => navigate(`/products/${product._id}`)}
                 style={{
                   display: "flex",
                   alignItems: "center",
@@ -75,6 +76,7 @@ const CartPage = () => {
                   padding: "10px",
                   boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
                   backgroundColor: "#f9f9f9",
+                  cursor: "pointer"
                 }}
               >
                 <img
@@ -87,10 +89,10 @@ const CartPage = () => {
                   <p>Price: {product.price || "N/A"}</p>
                   <p>Quantity: {item.quantity}</p>
                   <div>
-                    <button onClick={() => increaseQuantity(item._id)} style={{ marginRight: "10px" }}>
+                    <button onClick={(e) => { e.stopPropagation(); increaseQuantity(item._id); }} style={{ marginRight: "10px" }}>
                       +
                     </button>
-                    <button onClick={() => decreaseQuantity(item._id)}>-</button>
+                    <button onClick={(e) => { e.stopPropagation(); decreaseQuantity(item._id); }}>-</button>
                   </div>
                 </div>
               </div>

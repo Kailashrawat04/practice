@@ -3,6 +3,10 @@ import React, { useEffect, useState } from "react";
 import "./Home.css";
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import HeroBanner from "../components/HeroBanner";
+import SearchBar from "../components/SearchBar";
+import PincodeEntry from "../components/PincodeEntry";
+import BottomNav from "../components/BottomNav";
 
 const Home = () => {
   const [productData, setProductData] = useState([]);
@@ -32,23 +36,32 @@ const Home = () => {
   return (
     <div>
       <Navbar />
+      <HeroBanner />
+      <PincodeEntry />
+      <SearchBar />
       <button onClick={goToCart} style={{ margin: "10px", padding: "10px", fontSize: "16px" }}>
         Go to Cart
       </button>
       <div className="container">
         {productData.map((elem, index) => {
           return (
-            <div className="card" key={index}>
+            <div
+              className="card"
+              key={index}
+              onClick={() => navigate(`/products/${elem._id}`)}
+              style={{ cursor: "pointer" }}
+            >
               <div className="top">
                 <img src={elem.image} alt="" />
               </div>
               <div className="bottom">
-                <Link to={`/admin/products/detail/${elem._id}`}>{elem.title}</Link>
+                <h3>{elem.title}</h3>
                 <p>{elem.description}</p>
                 <h2>Price : {elem.price}</h2>
                 {/* Added button to add product to cart */}
                 <button
-                  onClick={async () => {
+                  onClick={async (e) => {
+                    e.stopPropagation();
                     try {
                       await fetch(`http://localhost:3000/cart/add/${elem._id}`, {
                         method: "POST",
@@ -68,6 +81,7 @@ const Home = () => {
           );
         })}
       </div>
+      <BottomNav />
     </div>
   );
 };
