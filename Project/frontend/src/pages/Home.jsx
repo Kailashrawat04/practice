@@ -19,7 +19,7 @@ const Home = () => {
 
   const getData = async () => {
     await axios
-      .get("http://localhost:3000/")
+      .get("http://localhost:3000/products")
       .then((res) => {
         console.log(res.data.products);
         setProductData(res.data.products);
