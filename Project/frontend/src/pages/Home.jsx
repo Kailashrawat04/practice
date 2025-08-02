@@ -11,27 +11,34 @@ import BottomNav from "../components/BottomNav";
 
 const Home = () => {
   const [productData, setProductData] = useState([]);
+  const [pagination, setPagination] = useState({});
+  const [currentPage, setCurrentPage] = useState(1);
   const navigate = useNavigate();
 
   useEffect(() => {
-    getData();
-  }, []);
+    getData(currentPage);
+  }, [currentPage]);
 
-  const getData = async () => {
-    await axios
-      .get("http://localhost:3000/products")
-      .then((res) => {
-        console.log(res.data.products);
-        setProductData(res.data.products);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  const getData = async (page = 1) => {
+    try {
+      const res = await axios.get(`http://localhost:3000/products?page=${page}&limit=10`);
+      console.log(res.data.products);
+      setProductData(res.data.products);
+      setPagination(res.data.pagination);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   // Added a new button handler to navigate to Cart page
   const goToCart = () => {
     navigate("/cart");
+  };
+
+  const handlePageChange = (newPage) => {
+    if (newPage >= 1 && newPage <= pagination.pages) {
+      setCurrentPage(newPage);
+    }
   };
 
   return (
@@ -48,7 +55,7 @@ const Home = () => {
           return (
             <div
               className="card"
-              key={index}
+              key={elem._id}
               onClick={() => navigate(`/products/${elem._id}`)}
               style={{ cursor: "pointer" }}
             >
@@ -82,6 +89,30 @@ const Home = () => {
           );
         })}
       </div>
+      
+      {/* Pagination controls */}
+      {pagination.pages > 1 && (
+        <div style={{ display: "flex", justifyContent: "center", margin: "20px 0" }}>
+          <button 
+            onClick={() => handlePageChange(currentPage - 1)} 
+            disabled={currentPage === 1}
+            style={{ margin: "0 5px", padding: "5px 10px" }}
+          >
+            Previous
+          </button>
+          <span style={{ margin: "0 10px", alignSelf: "center" }}>
+            Page {currentPage} of {pagination.pages}
+          </span>
+          <button 
+            onClick={() => handlePageChange(currentPage + 1)} 
+            disabled={currentPage === pagination.pages}
+            style={{ margin: "0 5px", padding: "5px 10px" }}
+          >
+            Next
+          </button>
+        </div>
+      )}
+      
       <BottomNav />
     </div>
   );

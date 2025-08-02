@@ -7,6 +7,7 @@ import RecommendedProducts from '../components/RecommendedProducts'
 const ProductDetail = () => {
   const { productId } = useParams()
   const [product, setProduct] = useState(null)
+  const [error, setError] = useState('')
 
   useEffect(() => {
     getProductDetail()
@@ -15,9 +16,14 @@ const ProductDetail = () => {
   const getProductDetail = async () => {
     try {
       const res = await axios.get("http://localhost:3000/products/" + productId)
-      setProduct(res.data)
+      setProduct(res.data.product)
     } catch (err) {
       console.log(err)
+      if (err.response && err.response.data && err.response.data.message) {
+        setError(err.response.data.message)
+      } else {
+        setError('Error fetching product')
+      }
     }
   }
 
@@ -29,6 +35,10 @@ const ProductDetail = () => {
       console.error("Error adding product to cart:", error)
       alert("Failed to add product to cart")
     }
+  }
+
+  if (error) {
+    return <div className="error">Error: {error}</div>
   }
 
   if (!product) {

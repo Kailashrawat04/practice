@@ -10,8 +10,10 @@ const UpdateProduct = () => {
     const [description, setDescription] = useState('');
     const [category, setCategory] = useState('');
     const [price, setPrice] = useState('');
-    const [image, setImage] = useState('');
+    const [image, setImage] = useState(null);
     const [existingImage, setExistingImage] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
 
     useEffect(() => {
         // Fetch the existing product data
@@ -25,30 +27,59 @@ const UpdateProduct = () => {
                 setPrice(product.price);
                 setExistingImage(product.image);
             } catch (err) {
-                console.log(err);
+                console.error(err);
+                setError('Error fetching product data');
             }
         };
 
         fetchProduct();
     }, [productId]);
 
-    const handleSubmit = (e) => {
+    const handleImageChange = (e) => {
+        setImage(e.target.files[0]);
+    };
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        let formData = new FormData(e.target);
+        setLoading(true);
+        setError('');
         
-        axios.post(`http://localhost:3000/products/update/${productId}`, formData)
-            .then((res) => {
-                console.log(res);
-                navigate("/home");
-            })
-            .catch((err) => {
-                console.log(err);
+        try {
+            let formData = new FormData();
+            formData.append('title', title);
+            formData.append('description', description);
+            formData.append('category', category);
+            formData.append('price', price);
+            
+            // Only append image if a new one is selected
+            if (image) {
+                formData.append('image', image);
+            }
+            
+            const res = await axios.post(`http://localhost:3000/products/update/${productId}`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
             });
+            
+            console.log(res.data);
+            navigate("/home");
+        } catch (err) {
+            console.error(err);
+            if (err.response && err.response.data && err.response.data.message) {
+                setError(err.response.data.message);
+            } else {
+                setError('Error updating product');
+            }
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
         <div className='formContainer'>
             <h2>Update Product</h2>
+            {error && <div className="error">{error}</div>}
             <form onSubmit={handleSubmit}>
                 <div className="formGroup">
                     <label htmlFor="title">Title</label>
@@ -59,6 +90,7 @@ const UpdateProduct = () => {
                         onChange={(e) => setTitle(e.target.value)}
                         name="title"
                         id="title"
+                        required
                     />
                 </div>
 
@@ -75,6 +107,7 @@ const UpdateProduct = () => {
                         name="image"
                         id="image"
                         accept="image/*"
+                        onChange={handleImageChange}
                     />
                     <p>Leave blank to keep current image</p>
                 </div>
@@ -88,6 +121,7 @@ const UpdateProduct = () => {
                         id="description"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
+                        required
                     />
                 </div>
 
@@ -100,6 +134,7 @@ const UpdateProduct = () => {
                         id="category"
                         value={category}
                         onChange={(e) => setCategory(e.target.value)}
+                        required
                     />
                 </div>
 
@@ -112,10 +147,13 @@ const UpdateProduct = () => {
                         id="price"
                         value={price}
                         onChange={(e) => setPrice(e.target.value)}
+                        required
                     />
                 </div>
 
-                <button type="submit">Update Product</button>
+                <button type="submit" disabled={loading}>
+                    {loading ? 'Updating...' : 'Update Product'}
+                </button>
             </form>
         </div>
     );

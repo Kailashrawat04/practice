@@ -6,29 +6,55 @@ import { useNavigate } from 'react-router-dom';
 const AddProducts = () => {
 
     const navigate = useNavigate()
-    const [title, settitle] = useState('');
-    const [image, setimage] = useState('');
-    const [description, setdescription] = useState('');
-    const [category, setcategory] = useState('');
-    const [price, setprice] = useState('');
+    const [title, setTitle] = useState('');
+    const [image, setImage] = useState(null);
+    const [description, setDescription] = useState('');
+    const [category, setCategory] = useState('');
+    const [price, setPrice] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
 
-    const handleSubmit = (e) => {
+    const handleImageChange = (e) => {
+        setImage(e.target.files[0]);
+    };
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        let formData = new FormData(e.target);
-        axios.post("http://localhost:3000/products/add", formData)
-            .then((res) => {
-                console.log(res);
-                navigate("/home")
-            })
-            .catch((err) => {
-                console.log(err);
+        setLoading(true);
+        setError('');
+        
+        try {
+            let formData = new FormData();
+            formData.append('title', title);
+            formData.append('description', description);
+            formData.append('category', category);
+            formData.append('price', price);
+            formData.append('image', image);
+            
+            const res = await axios.post("http://localhost:3000/products/add", formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
             });
+            
+            console.log(res.data);
+            navigate("/home");
+        } catch (err) {
+            console.error(err);
+            if (err.response && err.response.data && err.response.data.message) {
+                setError(err.response.data.message);
+            } else {
+                setError('Error adding product');
+            }
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
-        <div
-          
-        className='formContainer'>
+        <div className='formContainer'>
+            <h2>Add New Product</h2>
+            {error && <div className="error">{error}</div>}
             <form onSubmit={handleSubmit}>
                 <div className="formGroup">
                     <label htmlFor="title">Title</label>
@@ -36,9 +62,10 @@ const AddProducts = () => {
                         type="text"
                         placeholder="Enter product title"
                         value={title}
-                        onChange={(e) => settitle(e.target.value)}
+                        onChange={(e) => setTitle(e.target.value)}
                         name="title"
                         id="title"
+                        required
                     />
                 </div>
 
@@ -49,7 +76,8 @@ const AddProducts = () => {
                         name="image"
                         id="image"
                         accept="image/*"
-                        onChange={(e) => setimage(e.target.files[0])}
+                        onChange={handleImageChange}
+                        required
                     />
                 </div>
 
@@ -61,7 +89,8 @@ const AddProducts = () => {
                         name="description"
                         id="description"
                         value={description}
-                        onChange={(e) => setdescription(e.target.value)}
+                        onChange={(e) => setDescription(e.target.value)}
+                        required
                     />
                 </div>
 
@@ -73,7 +102,8 @@ const AddProducts = () => {
                         name="category"
                         id="category"
                         value={category}
-                        onChange={(e) => setcategory(e.target.value)}
+                        onChange={(e) => setCategory(e.target.value)}
+                        required
                     />
                 </div>
 
@@ -85,11 +115,14 @@ const AddProducts = () => {
                         name="price"
                         id="price"
                         value={price}
-                        onChange={(e) => setprice(e.target.value)}
+                        onChange={(e) => setPrice(e.target.value)}
+                        required
                     />
                 </div>
 
-                <button type="submit">Submit</button>
+                <button type="submit" disabled={loading}>
+                    {loading ? 'Adding...' : 'Add Product'}
+                </button>
             </form>
         </div>
     );
